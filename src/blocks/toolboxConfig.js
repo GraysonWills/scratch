@@ -22,6 +22,8 @@ export const toolboxConfig = `
       <block type="clustering_dbscan"></block>
       <block type="clustering_hierarchical"></block>
       <block type="clustering_params"></block>
+      <block type="clustering_number"></block>
+      
     </category>
   </xml>
 `;

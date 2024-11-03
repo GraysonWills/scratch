@@ -30,7 +30,7 @@ export const mlBlocks = [
   },
   {
     "type": "ml_add_layer",
-    "message0": "Add Layer %1 units %2",
+    "message0": "Add Layer %1 units %2 activation %3",
     "args0": [
       {
         "type": "field_dropdown",
@@ -42,18 +42,7 @@ export const mlBlocks = [
           ["Conv3D", "CONV3D"],
           ["LSTM", "LSTM"],
           ["GRU", "GRU"],
-          ["SimpleRNN", "SIMPLE_RNN"],
-          ["Dropout", "DROPOUT"],
-          ["MaxPooling1D", "MAXPOOL1D"],
-          ["MaxPooling2D", "MAXPOOL2D"],
-          ["MaxPooling3D", "MAXPOOL3D"],
-          ["Flatten", "FLATTEN"],
-          ["BatchNormalization", "BATCHNORM"],
-          ["Embedding", "EMBEDDING"],
-          ["GlobalAveragePooling1D", "GLOBALAVGPOOL1D"],
-          ["GlobalAveragePooling2D", "GLOBALAVGPOOL2D"],
-          ["GlobalMaxPooling1D", "GLOBALMAXPOOL1D"],
-          ["GlobalMaxPooling2D", "GLOBALMAXPOOL2D"]
+          ["SimpleRNN", "SIMPLE_RNN"]
         ]
       },
       {
@@ -62,6 +51,17 @@ export const mlBlocks = [
         "value": 128,
         "min": 1,
         "max": 2048
+      },
+      {
+        "type": "field_dropdown",
+        "name": "ACTIVATION",
+        "options": [
+          ["ReLU", "RELU"],
+          ["Sigmoid", "SIGMOID"],
+          ["Tanh", "TANH"],
+          ["Softmax", "SOFTMAX"],
+          ["Linear", "LINEAR"]
+        ]
       }
     ],
     "previousStatement": "LAYER_STATEMENT",
@@ -69,8 +69,7 @@ export const mlBlocks = [
     "colour": 230,
     "tooltip": "Add a layer to the model."
   },
-  {
-    "type": "ml_set_optimizer",
+  {    "type": "ml_set_optimizer",
     "message0": "Set Optimizer %1",
     "args0": [
       {

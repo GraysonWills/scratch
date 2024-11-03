@@ -1,3 +1,7 @@
+import kmeans from '../algorithms/kmeans';
+import dbscan from '../algorithms/dbscan';
+import hierarchical from '../algorithms/hierarchical';
+
 export const clusteringBlocks = [
   {
     "type": "clustering_start",
@@ -25,21 +29,24 @@ export const clusteringBlocks = [
     "message0": "K-Means Clustering",
     "previousStatement": "CLUSTERING_ALGORITHM",
     "colour": 160,
-    "tooltip": "K-Means clustering algorithm"
+    "tooltip": "K-Means clustering algorithm",
+    "execute": kmeans
   },
   {
     "type": "clustering_dbscan",
     "message0": "DBSCAN Clustering",
     "previousStatement": "CLUSTERING_ALGORITHM",
     "colour": 160,
-    "tooltip": "Density-based spatial clustering"
+    "tooltip": "Density-based spatial clustering",
+    "execute": dbscan
   },
   {
     "type": "clustering_hierarchical",
     "message0": "Hierarchical Clustering",
     "previousStatement": "CLUSTERING_ALGORITHM",
     "colour": 160,
-    "tooltip": "Hierarchical clustering algorithm"
+    "tooltip": "Hierarchical clustering algorithm",
+    "execute": hierarchical
   },
   {
     "type": "clustering_params",
@@ -52,8 +59,7 @@ export const clusteringBlocks = [
           ["number of clusters", "N_CLUSTERS"],
           ["max iterations", "MAX_ITER"],
           ["epsilon", "EPS"],
-          ["minimum samples", "MIN_SAMPLES"],
-          ["linkage", "LINKAGE"]
+          ["minimum samples", "MIN_SAMPLES"]
         ]
       },
       {
