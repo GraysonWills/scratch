@@ -1,29 +1,23 @@
 import kmeans from '../algorithms/kmeans';
 import dbscan from '../algorithms/dbscan';
 import hierarchical from '../algorithms/hierarchical';
-
-export const clusteringBlocks = [
-  {
-    "type": "clustering_start",
-    "message0": "Start Clustering %1 Algorithm: %2 Parameter: %3",
-    "args0": [
-      {
-        "type": "input_dummy"
-      },
-      {
-        "type": "input_statement",
-        "name": "ALGORITHM",
-        "check": "CLUSTERING_ALGORITHM"
-      },
-      {
-        "type": "input_statement",
-        "name": "PARAMETER",
-        "check": "CLUSTERING_PARAM"
-      }
-    ],
-    "colour": 160,
-    "tooltip": "Begin clustering analysis"
-  },
+  export const clusteringBlocks = [
+    {
+      "type": "clustering_start",
+      "message0": "Start Clustering %1 Algorithm: %2",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "ALGORITHM",
+          "check": "CLUSTERING_ALGORITHM"
+        }
+      ],
+      "colour": 160,
+      "tooltip": "Begin clustering analysis"
+    },
   {
     "type": "clustering_kmeans",
     "message0": "K-Means Clustering",
@@ -72,5 +66,19 @@ export const clusteringBlocks = [
     "previousStatement": "CLUSTERING_PARAM",
     "colour": 160,
     "tooltip": "Set clustering parameter"
+  },
+  {
+    "type": "clustering_number",
+    "message0": "%1",
+    "args0": [{
+      "type": "field_number",
+      "name": "VALUE",
+      "value": 3,
+      "min": 0,
+      "precision": 0.1
+    }],
+    "output": "Number",
+    "colour": 160,
+    "tooltip": "Number input for clustering parameters"
   }
 ];
