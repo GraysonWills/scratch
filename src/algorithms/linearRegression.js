@@ -1,40 +1,42 @@
 export default async function(data, params) {
-  // Main linear regression function
-  async function linearRegression(points) {
-    const meanX = points.reduce((sum, point) => sum + point[0], 0) / points.length
-    const meanY = points.reduce((sum, point) => sum + point[1], 0) / points.length
+  // Calculate means
+  const meanX = data.reduce((sum, point) => sum + point[0], 0) / data.length
+  const meanY = data.reduce((sum, point) => sum + point[1], 0) / data.length
 
-    let numerator = 0
-    let denominator = 0
-    
-    points.forEach(point => {
-      const xDiff = point[0] - meanX
-      numerator += xDiff * (point[1] - meanY)
-      denominator += xDiff * xDiff
-    })
+  // Calculate coefficients
+  let numerator = 0
+  let denominator = 0
+  
+  data.forEach(point => {
+    const xDiff = point[0] - meanX
+    numerator += xDiff * (point[1] - meanY)
+    denominator += xDiff * xDiff
+  })
 
-    const slope = numerator / denominator
-    const intercept = meanY - slope * meanX
+  // Calculate slope (m) and y-intercept (b)
+  const slope = numerator / denominator
+  const intercept = meanY - slope * meanX
 
-    return { slope, intercept }
-  }
-
-  // Calculate predictions
-  function calculatePredictions(points, model) {
-    return points.map(point => model.slope * point[0] + model.intercept)
-  }
-
-  // Perform regression and get predictions
-  const model = await linearRegression(data)
-  const predictions = calculatePredictions(data, model)
+  // Calculate predictions and R-squared
+  const predictions = data.map(point => slope * point[0] + intercept)
+  
+  // Calculate R-squared
+  const ssTotal = data.reduce((sum, point) => 
+    sum + Math.pow(point[1] - meanY, 2), 0)
+  const ssResidual = data.reduce((sum, point, i) => 
+    sum + Math.pow(point[1] - predictions[i], 2), 0)
+  const rSquared = 1 - (ssResidual / ssTotal)
 
   return {
-    labels: predictions,
-    data,
-    model: {
-      slope: model.slope,
-      intercept: model.intercept,
-      equation: `y = ${model.slope.toFixed(4)}x + ${model.intercept.toFixed(4)}`
+    slope,
+    intercept,
+    predictions,
+    rSquared,
+    equation: `y = ${slope.toFixed(4)}x + ${intercept.toFixed(4)}`,
+    metrics: {
+      r_squared: rSquared,
+      slope: slope,
+      intercept: intercept
     }
   }
 }

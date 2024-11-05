@@ -9,15 +9,21 @@ const DataUploader = forwardRef(({ onDataLoad }, ref) => {
   const [selectedY, setSelectedY] = useState('');
   const [selectedZ, setSelectedZ] = useState('');
   const [clusterResults, setClusterResults] = useState(null);
+  const [regressionResults, setRegressionResults] = useState(null);
 
   useImperativeHandle(ref, () => ({
     updateClusterResults: (results) => {
       setClusterResults(results);
     },
+    updateRegressionResults: (results) => {
+      setRegressionResults(results);
+    },
     getSelectedX: () => selectedX,
     getSelectedY: () => selectedY,
     getSelectedZ: () => selectedZ
   }));
+
+
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -96,6 +102,31 @@ const DataUploader = forwardRef(({ onDataLoad }, ref) => {
               }}
             />
           )}
+            {regressionResults && (
+    <Plot
+      data={[
+        {
+          x: data.map(d => d[selectedX]),
+          y: data.map(d => d[selectedY]),
+          mode: 'markers',
+          type: 'scatter',
+          name: 'Data Points'
+        },
+        {
+          x: data.map(d => d[selectedX]),
+          y: regressionResults.predictions,
+          mode: 'lines',
+          type: 'scatter',
+          name: 'Regression Line'
+        }
+      ]}
+      layout={{
+        title: 'Regression Results',
+        xaxis: { title: selectedX },
+        yaxis: { title: selectedY }
+      }}
+    />
+  )}
 
           <div style={{ marginTop: '20px' }}>
             <h3>Data Preview:</h3>

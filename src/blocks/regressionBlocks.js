@@ -32,6 +32,20 @@ export const regressionBlocks = [
     "colour": "#7C4DFF",
     "tooltip": "Begin regression analysis"
   },
+    {
+    "type": "regression_number",
+    "message0": "%1",
+    "args0": [{
+      "type": "field_number",
+      "name": "VALUE",
+      "value": 3,
+      "min": 0,
+      "precision": 0.1
+    }],
+    "output": "Number",
+    "colour": "#7C4DFF",
+    "tooltip": "Number input for clustering parameters"
+  },
   {
     "type": "regression_linear",
     "message0": "Linear Regression",
@@ -39,8 +53,7 @@ export const regressionBlocks = [
     "colour": "#7C4DFF",
     "tooltip": "Simple linear regression",
     "execute": linearRegressionAlgorithm
-  },
-  // Add similar blocks for each regression type
+  },  // Add similar blocks for each regression type
   {
     "type": "regression_polynomial",
     "message0": "Polynomial Regression",

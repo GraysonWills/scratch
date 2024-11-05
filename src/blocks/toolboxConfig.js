@@ -26,6 +26,7 @@ export const toolboxConfig = `
     </category>
     <category name="Regression" colour="#7C4DFF">
       <block type="regression_start"></block>
+      <block type="regression_number"></block>
       <block type="regression_linear"></block>
       <block type="regression_polynomial"></block>
       <block type="regression_ridge"></block>

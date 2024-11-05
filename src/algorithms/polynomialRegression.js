@@ -61,18 +61,29 @@ export default async function(data, params) {
     return features.reduce((sum, feature, i) => sum + feature * coefficients[i], 0)
   })
 
-  // Generate equation string
+  // Calculate R-squared
+  const meanY = y.reduce((sum, val) => sum + val, 0) / y.length
+  const ssTotal = y.reduce((sum, val) => sum + Math.pow(val - meanY, 2), 0)
+  const ssResidual = y.reduce((sum, val, i) => sum + Math.pow(val - predictions[i], 2), 0)
+  const rSquared = 1 - (ssResidual / ssTotal)
+
+  // Format equation string more cleanly
   const equation = coefficients
-    .map((coef, i) => `${coef.toFixed(4)}x^${i}`)
+    .map((coef, i) => {
+      if (i === 0) return coef.toFixed(4)
+      if (i === 1) return `${coef.toFixed(4)}x`
+      return `${coef.toFixed(4)}x^${i}`
+    })
+    .filter(term => !term.startsWith('0'))
     .join(' + ')
 
   return {
-    labels: predictions,
-    data,
-    model: {
-      coefficients,
-      degree,
-      equation
+    predictions,
+    equation,
+    metrics: {
+      r_squared: rSquared,
+      coefficients: coefficients,
+      degree: degree
     }
   }
 }
